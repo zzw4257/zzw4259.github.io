@@ -1,11 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- 傻逼xlab -->
+    <title>zzw's Comment Palace</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="Generator" content="EditPlus®" />
+    <meta name="Author" content="zzw4257" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="stylelist.css" />
+    <link rel="stylesheet" href="specialstyle.css" />
     <meta charset="UTF-8">
-    <title>gcoder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评论区</title>
+    <style>
+    </style>
 </head>
+
 <body>
-    <h1>gcoder的个人主页</h1>
-    <h1>Hello ~</h1>
+    <div class="largetitle">
+        <h1 alt="作者的第一个项目，谢谢支持" class="cool-title">zzw4257的聊天室</h1>
+    </div>
+    <div class="side-title">
+        <h1 class="side-title">欢迎在这里畅所欲言</h1>
+    </div>
+    <div class="frame">
+        <div class="comment-sender">
+            <form id="commentForm">
+                <div class="Information sheet">
+                    <p><label for="name">
+                            <h2>user name</h2>
+                        </label></p>
+                    <p><input type="text" id="name" name="name" class="input" placeholder="Enter your name..."></p>
+                </div>
+                <div class="Information sheet">
+                    <p><label for="commentw">
+                            <h2>comment content</h2>
+                        </label></p>
+                    <p><input type="text" id="comment" name="comment" class="input" placeholder="Type your comment...">
+                    </p>
+                </div>
+                <button type="submit" alt="Click it!" class="button1">
+                    <span>提交</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Toggle background button -->
+    <button class="background-button" onclick="toggleBackground()">New-Theme</button>
+
+    <!-- Upload image button -->
+    <!-- <label for="fileInput" class="upload-button">上传图片</label> -->
+    <!-- <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="changeImageBackground(event)"> -->
+
+    <div id="commentsContainer">
+        <!-- Comments will be added here dynamically -->
+    </div>
+
+    <div class="pagination" id="paginationContainer">
+        <!-- Pagination buttons will be added here dynamically -->
+    </div>
+    <div class="bottom-show">
+        <h1 class="enter">你真实的声音</h2>
+            <br>
+            <h1 class="leave">在这里书写</h2>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const commentsContainer = document.getElementById("commentsContainer");
+            const commentForm = document.getElementById("commentForm");
+            const paginationContainer = document.getElementById("paginationContainer");
+            const commentsPerPage = 8;
+            let currentPage = 1;
+
+            const comments = []; // Array to store comments
+
+            commentForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById("name").value;
+                const commentText = document.getElementById("comment").value;
+
+                if (name && commentText) {
+                    const comment = { name, commentText };
+                    comments.push(comment);
+                    displayComments();
+                    commentForm.reset(); // Clear the form
+                }
+            });
+
+            function displayComments() {
+                // Clear existing comments
+                commentsContainer.innerHTML = "";
+
+                // Display comments for the current page
+                const startIndex = (currentPage - 1) * commentsPerPage;
+                const endIndex = startIndex + commentsPerPage;
+                const currentComments = comments.slice(startIndex, endIndex);
+
+                // Display comments
+                currentComments.forEach((comment, index) => {
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment-display");
+
+                    const commentContent = document.createElement("div");
+                    commentContent.classList.add("comment-content");
+                    commentContent.innerHTML = `<strong>${comment.name}</strong><p>${comment.commentText}</p>`;
+
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.classList.add("delete-btn");
+                    deleteBtn.innerHTML = "删除";
+                    deleteBtn.addEventListener("click", function () {
+                        // deleteComment(index + startIndex);
+                        deleteCommentWithConfirmation(index + startIndex);
+                    });
+
+                    commentDiv.appendChild(commentContent);
+                    commentDiv.appendChild(deleteBtn);
+                    commentsContainer.appendChild(commentDiv);
+                });
+
+                // Display pagination buttons
+                displayPagination();
+            }
+
+            function displayPagination() {
+                const totalPages = Math.ceil(comments.length / commentsPerPage);
+
+                // Clear existing pagination buttons
+                paginationContainer.innerHTML = "";
+
+                // Display Previous button
+                if (currentPage > 1) {
+                    const prevBtn = createPaginationButton("Previous", currentPage - 1);
+                    paginationContainer.appendChild(prevBtn);
+                }
+
+                // Display numbered page buttons
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageBtn = createPaginationButton(i, i);
+                    paginationContainer.appendChild(pageBtn);
+                }
+
+                // Display Next button
+                if (currentPage < totalPages) {
+                    const nextBtn = createPaginationButton("Next", currentPage + 1);
+                    paginationContainer.appendChild(nextBtn);
+                }
+            }
+
+            function createPaginationButton(label, page) {
+                const pageBtn = document.createElement("button");
+                pageBtn.classList.add("page-btn");
+                if (page === currentPage) {
+                    pageBtn.classList.add("current-page");
+                }
+                pageBtn.innerText = label;
+                pageBtn.addEventListener("click", function () {
+                    currentPage = page;
+                    displayComments();
+                });
+                return pageBtn;
+            }
+
+            function deleteCommentWithConfirmation(index) {
+                const isConfirmed = window.confirm("确认删除这条评论吗？");
+
+                if (isConfirmed) {
+                    deleteComment(index);
+                }
+            }
+
+            function deleteComment(index) {
+                comments.splice(index, 1);
+                displayComments();
+            }
+
+            // Display initial comments
+            displayComments();
+        });
+        let currentBackground = 1; // 1: Polygon, 2: Solid Color, 3: Image
+
+        function toggleBackground() {
+            const body = document.body;
+
+            switch (currentBackground) {
+                case 1:
+                    body.classList.remove("solid-color-background");
+                    body.classList.add("image-background");
+                    currentBackground = 2;
+                    break;
+                case 2:
+                    body.classList.remove("image-background");
+                    body.classList.add("polygon-background");
+
+                    currentBackground = 3;
+                    break;
+                case 3:
+                    body.classList.remove("polygon-background");
+                    body.classList.add("solid-color-background");
+                    currentBackground = 1;
+                    break;
+            }
+        }
+
+        function changeImageBackground(event) {
+            const body = document.body;
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    body.style.backgroundImage = `url('${e.target.result}')`;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
 </body>
+
 </html>
