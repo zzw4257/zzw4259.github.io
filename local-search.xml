@@ -3,5 +3,24 @@
   
   
   
+  <entry>
+    <title>here</title>
+    <link href="/2023/11/12/here/"/>
+    <url>/2023/11/12/here/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Let’s-start-from-here"><a href="#Let’s-start-from-here" class="headerlink" title="Let’s start from here"></a>Let’s start from here</h1><blockquote><p>闻起来像一个CS人?呵呵，你怎么有脸称自己是CS人呀?<br>———by不知名神仙</p></blockquote><h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><p>这篇文章希望给予你在起步<em>逐渐成为专业的计算机人</em>征途上一些粗浅的提示,<strong>这并不代表你需要盲从别人认为正确的</strong></p><p><strong>下面简要概述一下所涉及的内容</strong></p><ul><li><code>vscode</code>,<code>Windows Terminal</code>,<code>WSL</code> 帮助你在WIndow&#x2F;Mac(<strong>主要是前者</strong>)的架构下更”简易，方便”地编程，调试，获得</li><li><code>git</code>和 <code>github</code>，帮助你在线上下相结合的分布式储存体系中掌握 版本控制 以及 更好的团队文档&#x2F;代码&#x2F;项目共同编写体验</li><li><code>hexo</code>，<code>mkdocs</code>两个角度不同的插件帮助你管理自己的文档，且可以来网络特性更好辅助文件间的协同，在合适的额外时间开销下追求更优美精致的工作体验</li><li><code>sql</code>等，帮助你更好理解软硬件的关联，掌握trade-off的技术</li></ul><p>容易发现，这篇文章所讲的都是很具体的工具，而且事实上比起这些可能真正更重要的是<em>语言，算法</em> ，但是事实上掌握这些东西可以使你体会纯粹【知识】外世界的魅力，同时使硬货的学习实践更轻松。(很传统守序的一个暴论，但有一定道理)</p><p>屁话不多说了，我们直接开始。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>daily-blog</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
